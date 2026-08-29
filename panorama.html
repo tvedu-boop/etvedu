@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360 Space Panorama</title>
+    <!-- Pannellum library for 360 view -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #000;
+        }
+        #panorama {
+            width: 100%;
+            height: 100%;
+        }
+        /* একটি ব্যাক-বাটন যোগ করা হলো মেইন সাইটে ফেরার জন্য */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-family: sans-serif;
+            border-radius: 5px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .back-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← Back to Home</a>
+<div id="panorama"></div>
+
+<script>
+    // URL থেকে প্যারামিটার নেওয়ার ফাংশন (যেমন আপনার আগের লিংকে ছিল)
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // আপনি চাইলে URL-এর মাধ্যমে ছবি পরিবর্তন করতে পারবেন (যেমন: ?img=আপনার_ছবির_লিংক)
+    let imageUrl = urlParams.get('img');
+
+    // যদি URL-এ কোনো ছবি না থাকে, তবে একটি ডিফল্ট 360 স্পেস/মিউজিয়ামের ছবি দেখাব
+    if (!imageUrl) {
+        // এটি একটি ফ্রি 360 ডেমো ছবি
+        imageUrl = 'https://pannellum.org/images/alma.jpg'; 
+    }
+
+    // Pannellum 360 ভিউয়ার চালু করা
+    pannellum.viewer('panorama', {
+        "type": "equirectangular",
+        "panorama": imageUrl,
+        "autoLoad": true,
+        "autoRotate": -2, /* নিজে নিজে ঘুরবে */
+        "compass": false
+    });
+</script>
+
+</body>
+</html>
